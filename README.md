@@ -1,3 +1,35 @@
 # NCBI-BioSample-Scrape
 ## PURPOSE
 Scrape NCBI BioSample survey data and visualize frequency of survey responses
+
+## DETAILED DESCRIPTION
+This script starts by uploading a txt file of NCBI BioSample IDs. Then, a subset of these BioSamples are randomly selected from the txt file to then use in a loop structured to scrape data from the webpages that belong to these specific IDs. Once the data is tidied and saved, it is then used as input for plotting answers that correspond to specified questions that were administered during the sample survey.
+
+## PREREQUISITES AND DEPENDENCIES
+This program was created in Python version 3.10. All libraries were installed using conda install in the terminal. All libraries that required other dependency installations or updates were approved, but always use your own discretion when allowing these changes to be made. The following libraries are required for this script to run:
+-pandas
+-csv (built-in)
+-xlswriter (OPTIONAL - see script for more details)
+-time (built-in)
+-requests
+-BeautifulSoup
+-matplotlib
+-textwrap (built-in)
+-os (built-in)
+
+## CODE REUSE
+This script was structured to be as generic as possible, when applicable so that it could be easily reused by other programmers. In instances where the code is specific to files, plot styling, etc., there are inline comments that read: CHANGE WHEN REUSING. These lines of code should be modified when applicable by other programmers. 
+
+## UNUSED (COMMENTED-OUT) CODE
+There are instances in this script where code is commented out. These snippets of code are not essential to running the script. These snippets of code are still present in the script to either check a DataFrame structure or provide other methods of file export.
+
+## POTENTIAL ERROR IN os.makedirs()
+One area where people can commonly encounter a problem is in the command: os.makedirs("plots", exist_ok = True). The relative file path listed should work, but if not, this issue occurs because the "plots" folder that was made does not exist where Python is running (error mostly occurs if running the script in an IDE). The script and the "plots" folder must be grouped together, so that Python runs in both of those spaces. If this is the case, reorganize your working directory and provide the absolute file path. Since this issue is specific to the user, no commented code was provided inline. Change the: os.makedirs("plots", exist_ok = True) command as necessary to ensure that a folder exists to save your output plots to and that Python can find it to save to. 
+
+## EXAMPLE OUTPUTS
+This script used bar charts as the preferred method of plotting since some survey questions have 5+ possible responses. However, this plot type can be changed to suit personal needs. This script was built to include "NA" values if the question (and therefore answer) was not included in a BioSample ID's survey. This way, the program will not throw errors if the question is missing from one or more IDs and each plot will always visualize the total number of BioSamples in the sample subset (i.e. If subset was n = 50, then the plots will always visualize a total of 50 answers). Note that if an answer is categorized as "not provided," it means that the question WAS asked but no answer was provided. An answer categorized as "NA" means that the question was NEVER asked in the survey. For the sake of knowledge, these two groups were binned and visualized separately.
+This script visualized the answers to questions: Sex, Age Category, C. diff infection status, and antibiotic history (note that this can be changed by other programmers to suit preferences). Below are the outputs for each when using the script:
+<img width="2058" height="1680" alt="antibiotic_history" src="https://github.com/user-attachments/assets/9c989ed4-caa8-4146-a7e8-41300d8dbf65" />
+<img width="2032" height="1578" alt="age_cat" src="https://github.com/user-attachments/assets/7b9e70a9-add7-47b4-9244-2324727bf0ea" />
+<img width="2058" height="1757" alt="cdiff" src="https://github.com/user-attachments/assets/0ab0dd12-38d1-4cf0-8487-a239d497712d" />
+<img width="2058" height="1493" alt="sex" src="https://github.com/user-attachments/assets/e1995d5b-1822-4b85-a09c-64ec56e808e7" />
